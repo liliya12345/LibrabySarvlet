@@ -2,6 +2,8 @@ package model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,24 +22,44 @@ public class Book {
     private String publisher;
     @Column
     private Integer year;
+    @Column(name="image_path")
+    private String imagePath;
 //    @Enumerated(EnumType.STRING)
 //    private Language language;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Author> author;
     @ManyToOne
     private Category category;
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "book")
+    private List<UserBook> usersBook = new ArrayList<>();
 
-    public Book(Long id, String title, String description, String publisher, Integer year, List<Author> author, Category category) {
+
+
+
+    public Book() {
+    }
+
+    public Book(Long id, String title, String description, String publisher, Integer year, String imagePath, List<Author> author, Category category) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.publisher = publisher;
         this.year = year;
+        this.imagePath = imagePath;
         this.author = author;
         this.category = category;
     }
 
-    public Book() {
+    public Book(Long id, String title, String description, String publisher, Integer year, String imagePath, List<Author> author, Category category, List<UserBook> usersBook) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.publisher = publisher;
+        this.year = year;
+        this.imagePath = imagePath;
+        this.author = author;
+        this.category = category;
+        this.usersBook = usersBook;
     }
 
     public Long getId() {
@@ -94,6 +116,22 @@ public class Book {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public List<UserBook> getUsersBook() {
+        return usersBook;
+    }
+
+    public void setUsersBook(List<UserBook> usersBook) {
+        this.usersBook = usersBook;
     }
 //    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "book")
 //    private List<UserBook> usersBook = new ArrayList<>();

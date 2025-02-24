@@ -20,8 +20,9 @@ public class MainLibraryServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
         try {
 
-            req.setAttribute("contacts",list);
-                req.getRequestDispatcher("index.jsp").forward(req, res);
+            req.setAttribute("name", "Tom");
+            req.setAttribute("age", 34);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req, res);
 
 
         } catch (Throwable e) {

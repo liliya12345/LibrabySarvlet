@@ -1,35 +1,3 @@
-<%@ page import="model.Category" %>
-<%@ page import="dao.CategoryDao" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page isELIgnored="false" %>
-<%@ page import="service.BookService" %>
-<%@ page import="model.Book" %>
-<%@ page import="dao.BookDao" %><%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%--<%@ page import="model.Category" %>--%>
-<%--<%@ page import="dao.CategoryDao" %>--%>
-<%--<%@ page import="model.Book" %>--%>
-<%--<%@ page import="java.util.List" %>--%>
-<%--<!DOCTYPE html>--%>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <meta charset="UTF-8">--%>
-<%--    <title>JSP Application</title>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<% for (Category category : new CategoryDao().findAll()) {%>--%>
-<%--<%= category.getName()%>--%>
-<%--<br/>--%>
-<%--<%}%>--%>
-
-<%--<form action="/test1" method="post">--%>
-<%--&lt;%&ndash;    <input type="text" placeholder="enter a title" name="title"/>&ndash;%&gt;--%>
-<%--    <input type="text"  name="title" placeholder="enter a title">--%>
-<%--    <input type="submit" value="Search">--%>
-<%--</form>--%>
-<%--</body>--%>
-<%--</html>--%>
-
-
 <%--
   Created by IntelliJ IDEA.
   User: liliyasayfutdinova
@@ -299,15 +267,10 @@
         <a onclick="" href="" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
             Media <i class="fa fa-caret-down"></i>
         </a>
-        <%--        <#list categories as category>--%>
-        <%--        <a href="/books/${category.id}" class="w3-bar-item w3-button">${category.name}</a>--%>
-        <%--    </#list>--%>
-        <% for (Category category : new CategoryDao().findAll()) {%>
-        <a href="/category/<%= category.getId()%>" class="w3-bar-item w3-button"><%= category.getName()%>
-
-        </a>
-
-        <%}%>
+        <#--       -->
+<%--        <#list categories as category>--%>
+<%--        <a href="/books/${category.id}" class="w3-bar-item w3-button">${category.name}</a>--%>
+<%--    </#list>--%>
     </div>
 
 </nav>
@@ -348,18 +311,16 @@
     </div>
 
     <div class="w3-container w3-text-grey" id="jeans">
-        <%--        <p>${size} items </p>--%>
+<%--        <p>${size} items </p>--%>
     </div>
 
     <!-- Search-->
     <div class="w3-container w3-white w3-main">
         <h1 class="w3-center">Hitta sina favoriter</h1>
-        <form action="/search" method="get"
-              class="w3-flex flex-sm-row flex-column w3-center justify-content-center w3-margin">
+        <form action="/search" method="get" class="w3-flex flex-sm-row flex-column w3-center justify-content-center w3-margin">
             <input name="search" id="myInput"
-                   type="search" style="height: 38px" size="70" placeholder="Search for title or author"
-                   aria-label="Search"/>
-            <button type="submit" class="w3-button w3-red" style="height: 38px">Search</button>
+                   type="search" style="height: 38px" size="70"  placeholder="Search for title or author" aria-label="Search"/>
+            <button  type="submit" class="w3-button w3-red" style="height: 38px">Search</button>
         </form>
     </div>
     <!-- Product grid -->
@@ -367,67 +328,43 @@
         <div class="w3-row-margin" id="catalog">
             <div class="w3-col l12 s12">
                 <div class="w3-row-padding">
-                    <%--                    <#list books as book>--%>
-                    <%--                    <div class="w3-col l4">--%>
-                    <%--                        <img src="/images/1" style="width: 200px; height: 300px" alt="">--%>
-                    <%--                        <#--                        <p><a href="/lan" class="w3-button w3-black w3-padding-large w3-large">MIN SIDA</a></p>-->--%>
-                    <%--                        <p><a href="/booking/${book.id}" class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>--%>
-                    <%--                        </p>--%>
-                    <%--                        <p>${book.title}<br> ${book.authorFirstName} <br>${book.authorLastName}--%>
-                    <%--                            <b>${book.description}</b></p>--%>
-                    <%--                    </div>--%>
-                    <%--                </#list>--%>
-
-                    <c:forEach items="${books}" var="book">
-                        <div class="w3-col l4">
-                                <%--                            <img src="/images/1" style="width: 200px; height: 300px" alt="">--%>
-                                <%--                            <p><a href="/lan" class="w3-button w3-black w3-padding-large w3-large">MIN SIDA</a></p>--%>
-                                <%--                            <p><a href="/booking/${book.id}"--%>
-                                <%--                                  class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>--%>
-                                <%--                            </p>--%>
-                            <p>${book.title}<br> ${book.author[0].firstName} <br>${book.author[0].lastName}
-                                <b>${book.description}</b></p>
-                        </div>
-                    </c:forEach>
-                    <c:forEach items="${all}" var="book">
-                        <div class="w3-col l4">
-                            <img src=${book.imagePath} alt="img"/>
-                                <%--                            <p><a href="/lan" class="w3-button w3-black w3-padding-large w3-large">MIN SIDA</a></p>--%>
-                            <p><a href="/booking/${book.id}"
-                                  class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>
-                            </p>
-                            <p>${book.title}<br> ${book.author[0].firstName} <br>${book.author[0].lastName}
-                                <b>${book.description}</b></p>
-                        </div>
-                    </c:forEach>
-
-
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-
-
-    <div class="w3-row-margin">
-        <div class="w3-col l12 s12">
-            <div class="w3-row-padding">
-                <%--            <#list books as book>--%>
-                <%--            <div class="w3-col l4">--%>
-                <%--                <img src="/images/1" style="width: 200px; height: 300px" alt="">--%>
-                <%--                <#--                        <p><a href="/lan" class="w3-button w3-black w3-padding-large w3-large">MIN SIDA</a></p>-->--%>
-                <%--                <p><a href="/booking/${book.id}" class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>--%>
-                <%--                </p>--%>
-                <%--                <p>${book.title}<br> ${book.authorFirstName} <br>${book.authorLastName}--%>
-                <%--                    <b>${book.description}</b></p>--%>
-                <%--            </div>--%>
-                <%--        </#list>--%>
+<%--                    <#list books as book>--%>
+<%--                    <div class="w3-col l4">--%>
+<%--                        <img src="/images/1" style="width: 200px; height: 300px" alt="">--%>
+<%--                        <#--                        <p><a href="/lan" class="w3-button w3-black w3-padding-large w3-large">MIN SIDA</a></p>-->--%>
+<%--                        <p><a href="/booking/${book.id}" class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>--%>
+<%--                        </p>--%>
+<%--                        <p>${book.title}<br> ${book.authorFirstName} <br>${book.authorLastName}--%>
+<%--                            <b>${book.description}</b></p>--%>
+<%--                    </div>--%>
+<%--                </#list>--%>
             </div>
         </div>
 
 
     </div>
+</div>
+
+
+<div class="w3-row-margin">
+    <div class="w3-col l12 s12">
+        <div class="w3-row-padding">
+<%--            <#list books as book>--%>
+<%--            <div class="w3-col l4">--%>
+<%--                <img src="/images/1" style="width: 200px; height: 300px" alt="">--%>
+<%--                <#--                        <p><a href="/lan" class="w3-button w3-black w3-padding-large w3-large">MIN SIDA</a></p>-->--%>
+<%--                <p><a href="/booking/${book.id}" class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>--%>
+<%--                </p>--%>
+<%--                <p>${book.title}<br> ${book.authorFirstName} <br>${book.authorLastName}--%>
+<%--                    <b>${book.description}</b></p>--%>
+<%--            </div>--%>
+<%--        </#list>--%>
+    </div>
+</div>
+
+
+</div>
+
 
 
 </div>
@@ -438,10 +375,9 @@
 </body>
 </html>
 <script>
-    function hide() {
-        document.getElementById("catalog").style.display = "none"
+    function hide () {
+        document.getElementById("catalog").style.display="none"
     }
-
     function myFunction() {
         // Declare variables
         var input, filter, ul, li, a, i, txtValue;

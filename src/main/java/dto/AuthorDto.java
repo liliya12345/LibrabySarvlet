@@ -1,30 +1,18 @@
-package model;
+package dto;
 
-import jakarta.persistence.*;
-import java.util.List;
 
-@Entity
-@Table(name="authors")
-
-public class Author {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AuthorDto {
     private Long id;
-    @Column
     private String firstName;
-    @Column
     private String lastName;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Book> book;
 
-    public Author(Long id, String firstName, String lastName, List<Book> book) {
+    public AuthorDto() {
+    }
+
+    public AuthorDto(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.book = book;
-    }
-
-    public Author() {
     }
 
     public Long getId() {
@@ -49,13 +37,5 @@ public class Author {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public List<Book> getBook() {
-        return book;
-    }
-
-    public void setBook(List<Book> book) {
-        this.book = book;
     }
 }

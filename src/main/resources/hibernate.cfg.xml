@@ -10,24 +10,13 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/library</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">postgres</property>
-
-
-
-
-
-        <!-- SQL dialect -->
-
-
-        <!-- Echo all executed SQL to stdout -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-
-        <!-- Automatic schema creation -->
         <property name="hibernate.hbm2ddl.auto">update</property>
-
-        <!-- Mapping files or annotated classes -->
         <mapping class="model.Author"/>
         <mapping class="model.Book"/>
         <mapping class="model.Category"/>
+        <mapping class="model.User"/>
+        <mapping class="model.UserBook"/>
     </session-factory>
 </hibernate-configuration>
