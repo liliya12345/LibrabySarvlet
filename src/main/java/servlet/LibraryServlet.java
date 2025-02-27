@@ -1,6 +1,7 @@
 package servlet;
 
 import dao.BookDao;
+import dao.UserBookDao;
 import dto.BookDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,7 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Book;
 import model.Category;
+import model.User;
 import service.BookService;
+import service.UserBookService;
 
 import java.io.IOException;
 import java.util.*;
@@ -25,6 +28,10 @@ public class LibraryServlet extends HttpServlet {
         String title = req.getParameter("search");
         Set<BookDto> allBookDtoByAuthorOrByTitle = new BookService().findAllBookDtoByAuthorOrByTitle(title);
         req.getSession().setAttribute("books", allBookDtoByAuthorOrByTitle);
+//        User user = (User) req.getSession().getAttribute("user");
+//        int userId = user.getId();
+
+//        req.getSession().setAttribute("status", new UserBookService().findStatus());
         req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 
@@ -36,7 +43,7 @@ public class LibraryServlet extends HttpServlet {
 //        List<Book> byAuthor = new BookService().findByAuthor(title);
 //        result = Stream.concat(booksByTitle.stream(), byAuthor.stream()).distinct().collect(Collectors.toSet());
         Set<BookDto> allBookDtoByAuthorOrByTitle = new BookService().findAllBookDtoByAuthorOrByTitle(title);
-        req.getSession().setAttribute("books", allBookDtoByAuthorOrByTitle);
+        req.getSession().setAttribute("all", allBookDtoByAuthorOrByTitle);
         req.getRequestDispatcher("index.jsp").forward(req, resp);
 
     }

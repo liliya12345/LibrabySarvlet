@@ -1,45 +1,12 @@
 <%@ page import="model.Category" %>
 <%@ page import="dao.CategoryDao" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page isELIgnored="false" %>
-<%@ page import="service.BookService" %>
-<%@ page import="model.Book" %>
-<%@ page import="dao.BookDao" %>
+<%@ page import="dao.UserDao" %>
+<%@ page import="model.User" %>
 <%@ page import="model.UserBook" %>
 <%@ page import="dao.UserBookDao" %>
-<%@ page import="org.hibernate.Session" %><%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%--<%@ page import="model.Category" %>--%>
-<%--<%@ page import="dao.CategoryDao" %>--%>
-<%--<%@ page import="model.Book" %>--%>
-<%--<%@ page import="java.util.List" %>--%>
-<%--<!DOCTYPE html>--%>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <meta charset="UTF-8">--%>
-<%--    <title>JSP Application</title>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<% for (Category category : new CategoryDao().findAll()) {%>--%>
-<%--<%= category.getName()%>--%>
-<%--<br/>--%>
-<%--<%}%>--%>
-
-<%--<form action="/test1" method="post">--%>
-<%--&lt;%&ndash;    <input type="text" placeholder="enter a title" name="title"/>&ndash;%&gt;--%>
-<%--    <input type="text"  name="title" placeholder="enter a title">--%>
-<%--    <input type="submit" value="Search">--%>
-<%--</form>--%>
-<%--</body>--%>
-<%--</html>--%>
-
-
-<%--
-  Created by IntelliJ IDEA.
-  User: liliyasayfutdinova
-  Date: 2025-02-23
-  Time: 21:37
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@ page isELIgnored="false" %>--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -54,12 +21,6 @@
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
-        . alettab {
-            position: absolute;
-            width: 20%;
-            height: 30%;
-        }
-
         .wrapper {
             max-width: 700px;
             width: 100%;
@@ -69,15 +30,6 @@
             margin-left: auto;
             margin-right: auto;
             box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
-        }
-
-        #catalog {
-            box-sizing: content-box;;
-        }
-
-        .img {
-            width: 180px;
-            height: 280px;
         }
 
         .wrapper .title {
@@ -90,6 +42,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .w3-container {
+            padding: 0;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
         }
 
         .wrapper form {
@@ -317,9 +289,6 @@
         <a onclick="" href="" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
             Media <i class="fa fa-caret-down"></i>
         </a>
-        <%--        <#list categories as category>--%>
-        <%--        <a href="/books/${category.id}" class="w3-bar-item w3-button">${category.name}</a>--%>
-        <%--    </#list>--%>
         <% for (Category category : new CategoryDao().findAll()) {%>
         <a href="/category/<%= category.getId()%>" class="w3-bar-item w3-button"><%= category.getName()%>
 
@@ -349,22 +318,13 @@
 
     <!-- Top header -->
     <header class="w3-container w3-xlarge">
-
-
-        <c:if test="${empty user}">
-            <a href="/login" class="fa fa-user w3-right w3-padding-large"></a>
-        </c:if>
-        <c:if test="${not empty user}">
-            <a href="/logout" class="fa fa-sign-out w3-right w3-padding-large"></a>
-            <a href="/" class="fa fa-meh-o w3-right w3-padding-large"></a>
-        </c:if>
-
+        <a href="/logout" class="fa fa-sign-out w3-right w3-padding-large"></a>
+        <a href="/" class="fa fa-meh-o w3-right w3-padding-large"></a>
 
     </header>
+
     <div class="w3-display-container w3-container">
-        <%--        <img src="https://img.freepik.com/premium-photo/rustic-vintage-bookstore-filled-with-shelves-old-books-nostalgic-cozy-highquality-realistic_1310094-36304.jpg"--%>
         <img src="https://linkarkitektur.com/sites/default/files/styles/background_full_wide/public/node/field_image/SKHLM_bibliotek_001.jpg?itok=820R0M2y"
-        <%--        <img src="https://www.upplands-bro.se/images/200.2f599ceb18a265828c710012/1694522385747/MITT%20BIBLIOTEK%201372x914.jpg"--%>
              alt="library" style="width:100%">
 
         <div class="w3-display-topleft w3-text-black" style="padding:24px 48px">
@@ -374,99 +334,61 @@
             <p><a href="#jeans" class="w3-button buttop  w3-padding-large w3-large">MER INFO</a></p>
         </div>
     </div>
-    <c:if test="${not empty success}">
-        <div id="successMessage" class="w3-panel w3-green alettab" role="alert" aria-live="polite" aria-atomic="true">
-        <span onclick="this.parentElement.style.display='none'"
-              class="w3-button w3-large w3-position-absolut">&times;</span>
-                ${success}
-        </div>
-        <%--        <script>--%>
-        <%--            setTimeout(function () {--%>
-        <%--                document.getElementById('successMessage').style.display = 'none';--%>
-        <%--            }, 5000); // Hide after 5 seconds--%>
-        <%--        </script>--%>
-    </c:if>
-    <c:if test="${not empty error}">
-        <div id="errorMessage" class="w3-panel w3-red" role="alert" aria-live="polite" aria-atomic="true">
-        <span onclick="this.parentElement.style.display='none'"
-              class="w3-button w3-large w3-display-topright"
-              aria-label="Close error message">&times;</span>
-                ${error}
-        </div>
-    </c:if>
-    <div class="w3-container w3-text-grey" id="jeans">
-        <%--        <p>${size} items </p>--%>
-    </div>
-
-    <!-- Search-->
-    <div class="w3-container w3-white w3-main">
-        <h1 class="w3-center">Hitta sina favoriter</h1>
-        <form action="/search" method="get"
-              class="w3-flex flex-sm-row flex-column w3-center justify-content-center w3-margin">
-            <input name="search" id="myInput"
-                   type="search" style="height: 38px" size="70" placeholder="Search for title or author"
-                   aria-label="Search"/>
-            <button type="submit" class="w3-button w3-red" style="height: 38px">Search</button>
-        </form>
-    </div>
-    <!-- Product grid -->
-    <div id="catalog2">
-        <div class="w3-row-margin" id="catalog">
-            <div class="w3-col l12 s12">
-                <div class="w3-row-padding">
-                    <c:forEach items="${books}" var="book">
-                        ${book.status}<br/>
-                        ${book.dateOfReturn}
-                        <div class="w3-col l3">
-                            <img src=${book.imagePath} alt="img"/>
-                                <%--                            <p><a href="/lan" class="w3-button w3-black w3-padding-large w3-large">MIN SIDA</a></p>--%>
-                            <p><a href="/booking/${book.id}"
-                                  class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>
-                            </p>
-                            <p>${book.title}<br> ${book.author[0].firstName} <br>${book.author[0].lastName}
-                                <b>${book.description}</b></p>
-                        </div>
-                    </c:forEach>
-                    <c:forEach items="${all}" var="book">
-                        <p>${book.status}</p>
-                        ${book.dateOfReturn}
-                        <div class="w3-col l3">
-                            <img src=${book.imagePath} alt="img" class="img"/>
-                            <p><a href="/booking/${book.id}"
-                                  class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>
-                            </p>
-                            <p>${book.title}<br> ${book.author[0].firstName} <br>${book.author[0].lastName}
-                                <b>${book.description}</b></p>
-                        </div>
-                    </c:forEach>
-
-
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-
 
     <div class="w3-row-margin">
         <div class="w3-col l12 s12">
-            <div class="w3-row-padding">
-                <%--            <#list books as book>--%>
-                <%--            <div class="w3-col l4">--%>
-                <%--                <img src="/images/1" style="width: 200px; height: 300px" alt="">--%>
-                <%--                <#--                        <p><a href="/lan" class="w3-button w3-black w3-padding-large w3-large">MIN SIDA</a></p>-->--%>
-                <%--                <p><a href="/booking/${book.id}" class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>--%>
-                <%--                </p>--%>
-                <%--                <p>${book.title}<br> ${book.authorFirstName} <br>${book.authorLastName}--%>
-                <%--                    <b>${book.description}</b></p>--%>
-                <%--            </div>--%>
-                <%--        </#list>--%>
+            <div class="w3-row" style="background: #f3f2f2">
+                <title>Min sida</title>
+                <div class="w3-container  w3-main">
+                    <h1 class="w3-center">Min sida</h1>
+                    <p class="w3-center">Min lan</p>
+
+
+                    <table>
+                        <%User user = (User) request.getSession().getAttribute("user");
+                            int id = user.getId();
+                            int count=1;
+                        %>
+                        <tr>
+                            <th></th>
+                            <th>Title</th>
+                            <th>från</th>
+                            <th>till</th>
+                            <th>Status</th>
+
+                        </tr>
+                        <p class="w3-center"><%=user.getUsername().toUpperCase()%>
+                                <% for (UserBook userBook : new UserBookDao().findUserBooksByUsersId(id)) {%>
+                            <tr>
+                                <th><%= count++%>
+                                </th>
+                                <th><%= userBook.getBook().getTitle()%>
+                                </th>
+                                <th><%= userBook.getDateOfLoan()%> <a
+                                        href="/lan/" type="button"
+                                        class=" w3-center w3-button w3-red"
+                                        style="height: 38px">LÅNA OM
+                                </a></th>
+                                <th><%= userBook.getDateOfReturn()%> <a
+                                        href="/return/<%= userBook.getBook().getId()%>" type="button"
+                                        class=" w3-center w3-button w3-red"
+                                        style="height: 38px">Return
+                                </a></th>
+                                <th>
+                                    <%= userBook.isReturned()%>
+                                </th>
+                            </tr>
+                                <%}%>
+                    </table>
+
+                </div>
             </div>
         </div>
 
 
     </div>
+
+
 
 
 </div>

@@ -34,12 +34,14 @@ return new BookDao().findBooksByAuthorName(author);
       allBook.forEach(book -> bookDtos.add(new BookToBookDtoTransformer().transform(book)));
   return bookDtos;
   }
+
 public List<BookDto> findAllBookDtoByCategoryId(Long id) {
           List<Book> allBook = new BookDao().findByCategoryId(id);
           List<BookDto> bookDtos = new ArrayList<>();
           allBook.forEach(book -> bookDtos.add(new BookToBookDtoTransformer().transform(book)));
           return bookDtos;
       }
+
 
   public Set<BookDto> findAllBookDtoByAuthorOrByTitle(String text){
       List<BookDto> allBookDto = findAllBookDto();
@@ -58,17 +60,17 @@ public List<BookDto> findAllBookDtoByCategoryId(Long id) {
    return bookDtos;
   }
 
-  public void booking(Long bookId, User user){
+  public void booking(Long bookId, int userId){
       Book book = new BookDao().findById(bookId);
       UserBook userBook = new UserBook();
       userBook.setBook(book);
+      User user = new UserDao().findById(userId);
       userBook.setUser(user);
       userBook.setDateOfLoan(LocalDate.now());
       userBook.setDateOfReturn(LocalDate.now().plusMonths(1));
       userBook.setReturned(false);
-      userBook.setId(1L);
-
-    new UserBookDao().save(userBook);
+//      userBook.setId(1L);
+       new UserBookDao().save(userBook);
 
 
   }

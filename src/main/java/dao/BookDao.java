@@ -40,7 +40,7 @@ public class BookDao extends GenericDAO<Book,Long>{
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         String sql = "SELECT * FROM books b " +
-                " WHERE b.id = :id ";
+                " WHERE b.category_id = :id ";
 
         NativeQuery<Book> query = session.createNativeQuery(sql, Book.class);
         query.setParameter("id", id);

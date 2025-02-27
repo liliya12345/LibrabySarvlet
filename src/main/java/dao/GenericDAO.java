@@ -55,8 +55,9 @@ public abstract class GenericDAO<T, ID extends Serializable> {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            session.persist(entity);
-            tx.commit();
+            session.merge(entity);
+            session.getTransaction().commit();
+            session.close();
         } catch (Throwable e) {
             if(tx != null) tx.rollback();
             throw e;

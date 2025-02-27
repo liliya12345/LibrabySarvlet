@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import model.Author;
 import model.Category;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class BookDto {
@@ -14,6 +15,8 @@ public class BookDto {
     private String publisher;
     private Integer year;
     private String imagePath;
+    private String status;
+    private LocalDate dateOfReturn;
     private List<AuthorDto> author;
     private CategoryDto categoryDto;
 
@@ -84,5 +87,21 @@ public class BookDto {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDate getDateOfReturn() {
+        return dateOfReturn;
+    }
+
+    public void setDateOfReturn(LocalDate dateOfReturn) {
+        this.dateOfReturn = dateOfReturn;
     }
 }

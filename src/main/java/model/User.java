@@ -18,6 +18,12 @@ public class User {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "firstname")
+    private String firsName;
+
+    @Column(name = "lastname")
+    private String lastName;
+
     @Column(name = "password")
     private String password;
 
@@ -28,6 +34,9 @@ public class User {
     @Column(name = "changed")
     @Temporal(TemporalType.TIMESTAMP)
     private Date changed;
+
+    @Column(name="role")
+    private String role;
 
     @Column(name = "lastlogin")
     @Temporal(TemporalType.TIMESTAMP)
@@ -40,9 +49,12 @@ public class User {
         changed = new Date();
     }
 
-    public User(int id, String username, String password, Date created, Date changed, Date lastLogin, List<UserBook> userBook) {
+
+    public User(int id, String username, String firsName, String lastName, String password, Date created, Date changed, Date lastLogin, List<UserBook> userBook) {
         this.id = id;
         this.username = username;
+        this.firsName = firsName;
+        this.lastName = lastName;
         this.password = password;
         this.created = created;
         this.changed = changed;
@@ -101,12 +113,12 @@ public class User {
     @Override
     public String toString() {
         return "User ["
-                + "id="+id
-                + ", username="+username
-                + ", password="+password
-                + ", created="+created
-                + ", changed="+changed
-                + ", lastLogin="+lastLogin
+                + "id=" + id
+                + ", username=" + username
+                + ", password=" + password
+                + ", created=" + created
+                + ", changed=" + changed
+                + ", lastLogin=" + lastLogin
                 + "]";
     }
 
@@ -116,5 +128,29 @@ public class User {
 
     public void setUserBook(List<UserBook> userBook) {
         this.userBook = userBook;
+    }
+
+    public String getFirsName() {
+        return firsName;
+    }
+
+    public void setFirsName(String firsName) {
+        this.firsName = firsName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
