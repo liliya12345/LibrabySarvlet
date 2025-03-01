@@ -1,6 +1,8 @@
 package model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,9 +17,11 @@ public class User {
     @Column(name = "id")
     private int id;
 
+
     @Column(name = "username")
     private String username;
-
+    @NotNull
+    @Pattern(message = "the word must start with a capital letter",regexp = "^[A-Z][a-z]*")
     @Column(name = "firstname")
     private String firsName;
 

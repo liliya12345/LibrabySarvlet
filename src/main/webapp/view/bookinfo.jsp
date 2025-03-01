@@ -1,3 +1,51 @@
+<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+<%--<!DOCTYPE html>--%>
+<%--<html>--%>
+<%--<head>--%>
+<%--    <title>Info</title>--%>
+<%--    <meta charset="UTF-8">--%>
+<%--    <title>Bibliotek</title>--%>
+<%--    <meta charset="UTF-8">--%>
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1">--%>
+<%--    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">--%>
+<%--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">--%>
+<%--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">--%>
+<%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">--%>
+<%--    <style>--%>
+<%--        body {--%>
+<%--            font-family: "Times New Roman", Georgia, Serif;--%>
+<%--        }--%>
+
+<%--        h1, h2, h3, h4, h5, h6 {--%>
+<%--            font-family: "Playfair Display";--%>
+<%--            letter-spacing: 5px;--%>
+<%--        }--%>
+<%--    </style>--%>
+<%--</head>--%>
+<%--<body>--%>
+
+<%--<div class="w3-content" style="max-width:1100px">--%>
+<%--    <c:forEach items="${books}" var="book">--%>
+<%--        <div class="w3-row w3-padding-64">--%>
+<%--            <div class="w3-col m6 w3-padding-large w3-hide-small">--%>
+<%--                <img src="${book.imagePath}" alt="img" class="w3-round w3-image w3-opacity-min" width="600" height="750">--%>
+<%--            </div>--%>
+<%--            <div class="w3-col m6 w3-padding-large">--%>
+<%--                <h1 class="w3-center"><c:out value="${book.title}" /></h1><br>--%>
+<%--&lt;%&ndash;                <c:if test="${not empty book.author}">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    <h3 class="w3-center"><c:out value="${book.author[0].firstName}" /> <c:out value="${book.author[0].lastName}" /></h3>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                </c:if>&ndash;%&gt;--%>
+<%--                <p class="w3-large"><c:out value="${book.description}" /></p>--%>
+<%--                <p class="w3-large w3-text-grey w3-hide-medium"><c:out value="${book.publisher}" /></p>--%>
+<%--                <p class="w3-large w3-text-grey w3-hide-medium"><c:out value="${book.year}" /></p>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </c:forEach>--%>
+<%--</div>--%>
+
+<%--</body>--%>
+<%--</html>--%>
 <%@ page import="model.Category" %>
 <%@ page import="dao.CategoryDao" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -36,7 +84,9 @@
         .status-info {
             position: absolute;
             z-index: 50;
-        }.status-info1 {
+        }
+
+        .status-info1 {
             position: absolute;
             z-index: 50;
             margin-top: 240px;
@@ -315,11 +365,7 @@
 <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container w3-padding-16">
         <i onclick="" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-        <h3 class="w3-wide">
-            <a href="/">
-                Biblio
-            </a>
-        </h3>
+        <h3 class="w3-wide"><b><a href="/" >Biblio</a></b></h3>
     </div>
 
     <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
@@ -327,14 +373,9 @@
         <a onclick="" href="" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
             Media <i class="fa fa-caret-down"></i>
         </a>
-        <%--        <#list categories as category>--%>
-        <%--        <a href="/books/${category.id}" class="w3-bar-item w3-button">${category.name}</a>--%>
-        <%--    </#list>--%>
         <% for (Category category : new CategoryDao().findAll()) {%>
         <a href="/category/<%= category.getId()%>" class="w3-bar-item w3-button"><%= category.getName()%>
-
         </a>
-
         <%}%>
     </div>
 
@@ -342,11 +383,7 @@
 
 <!-- Top menu on small screens -->
 <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-    <div class="w3-bar-item w3-padding-24 w3-wide">
-        <a href="/" class="fa fa-meh-o w3-right w3-padding-large">
-            LOGO
-        </a>
-    </div>
+    <div class="w3-bar-item w3-padding-24 w3-wide">LOGO</div>
     <a href="" class="w3-bar-item w3-button w3-padding-24 w3-right"><i
             class="fa fa-bars"></i></a>
 </header>
@@ -358,149 +395,26 @@
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:250px">
 
-    <!-- Push down content on small screens -->
-    <div class="w3-hide-large" style="margin-top:83px"></div>
-
-    <!-- Top header -->
-    <header class="w3-container w3-xlarge">
-
-
-        <c:if test="${empty user}">
-            <a href="/login" class="fa fa-user w3-right w3-padding-large"></a>
-        </c:if>
-        <c:if test="${not empty user}">
-            <a href="/logout" class="fa fa-sign-out w3-right w3-padding-large"></a>
-            <a href="/user" class="fa fa-meh-o w3-right w3-padding-large"></a>
-        </c:if>
-
-
-    </header>
-    <div class="w3-display-container w3-container">
-        <%--        <img src="https://img.freepik.com/premium-photo/rustic-vintage-bookstore-filled-with-shelves-old-books-nostalgic-cozy-highquality-realistic_1310094-36304.jpg"--%>
-        <img src="https://linkarkitektur.com/sites/default/files/styles/background_full_wide/public/node/field_image/SKHLM_bibliotek_001.jpg?itok=820R0M2y"
-        <%--        <img src="https://www.upplands-bro.se/images/200.2f599ceb18a265828c710012/1694522385747/MITT%20BIBLIOTEK%201372x914.jpg"--%>
-             alt="library" style="width:100%">
-
-        <div class="w3-display-topleft w3-text-black" style="padding:24px 48px">
-            <h1 class="w3-jumbo w3-hide-small">Aktuella evenemang</h1>
-            <h1 class="w3-hide-large w3-hide-medium">Se alla evenemang</h1>
-            <h1 class="w3-hide-small">SpråkCafe</h1>
-            <p><a href="#jeans" class="w3-button buttop  w3-padding-large w3-large">MER INFO</a></p>
-        </div>
-    </div>
-    <c:if test="${not empty success}">
-        <div id="successMessage" class="w3-panel w3-green alettab" role="alert" aria-live="polite" aria-atomic="true">
-        <span onclick="this.parentElement.style.display='none'"
-              class="w3-button w3-large w3-position-absolut">&times;</span>
-                ${success}
-        </div>
-    </c:if>
-    <c:if test="${not empty error}">
-        <div id="errorMessage" class="w3-panel w3-red" role="alert" aria-live="polite" aria-atomic="true">
-        <span onclick="this.parentElement.style.display='none'"
-              class="w3-button w3-large w3-display-topright"
-              aria-label="Close error message">&times;</span>
-                ${error}
-        </div>
-    </c:if>
-    <div class="w3-container w3-text-grey" id="jeans">
-        <%--        <p>${size} items </p>--%>
-    </div>
-
-    <!-- Search-->
-    <div class="w3-container w3-white w3-main">
-        <h1 class="w3-center">Hitta sina favoriter</h1>
-        <form action="/search" method="get"
-              class="w3-flex flex-sm-row flex-column w3-center justify-content-center w3-margin">
-            <input name="search" id="myInput"
-                   type="search" style="height: 38px" size="70" placeholder="Search for title or author"
-                   aria-label="Search"/>
-            <button type="submit" class="w3-button w3-red" style="height: 38px">Search</button>
-        </form>
-    </div>
-    <!-- Product grid -->
-    <div id="catalog2">
-        <div class="w3-row-margin" id="catalog">
-            <div class="w3-col l12 s12">
-                <div class="w3-row-padding">
-<%--                    <c:forEach items="${books}" var="book">--%>
-<%--                        <div class="w3-col l3 contener">--%>
-<%--                            <c:if test="${empty book.dateOfReturn}">--%>
-<%--                                <div class="w3-button w3-green w3-padding-small w3-large status-info">${book.status}</div>--%>
-<%--                            </c:if>--%>
-<%--                            <c:if test="${not empty book.dateOfReturn}">--%>
-<%--                                <div class="w3-button w3-red w3-padding-small w3-large status-info">${book.dateOfReturn}</div>--%>
-<%--                            </c:if>--%>
-<%--                            <a  href="/bookinfo/${book.id}" class="w3-grey w3-padding w3-small status-info1">More..</a>--%>
-<%--                            <img src=${book.imagePath} alt="img" class="img"/>--%>
-<%--                            <p><a href="/booking/${book.id}"--%>
-<%--                                class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>--%>
-<%--                            </p>--%>
-
-<%--                            <p>${book.title}<br> ${book.author[0].firstName} <br>${book.author[0].lastName}--%>
-
-<%--                        </div>--%>
-<%--                    </c:forEach>--%>
-                    <c:forEach items="${all}" var="book">
-                        <div class="w3-col l3 contener">
-                            <c:if test="${empty book.dateOfReturn}">
-                                <div class="w3-button w3-green w3-padding-small w3-large status-info">${book.status}</div>
-                            </c:if>
-                            <c:if test="${not empty book.dateOfReturn}">
-                                <div class="w3-button w3-red w3-padding-small w3-large status-info">${book.dateOfReturn}</div>
-                            </c:if>
-                            <a  href="/bookinfo/${book.id}" class="w3-grey w3-padding w3-small status-info1">More..</a>
-                            <img src=${book.imagePath} alt="img" class="img"/>
-                            <p><a href="/booking/${book.id}"
-                                  class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>
-                            </p>
-                            <p>${book.title}<br> ${book.author[0].firstName} <br>${book.author[0].lastName}
-                                    <%--                                <b>${book.description}</b>--%>
-                            </p>
-
-
-                        </div>
-                    </c:forEach>
-
-
+    <div class="w3-content" style="max-width:1100px">
+        <c:forEach items="books" var="info">
+            <div class="w3-row w3-padding-64">
+                <div class="w3-col m6 w3-padding-large w3-hide-small">
+                    <img src="${books.imagePath}" alt="img" class="w3-round w3-image w3-opacity-min" width="600"
+                         height="750">
+                </div>
+                <div class="w3-col m6 w3-padding-large">
+                    <h1 class="w3-center">${books.title}</h1><br>
+                    <c:if test="${not empty books.author}">
+                        <h3 class="w3-center">${books.author[0].firstName} <br>${books.author[0].lastName}</h3>
+                    </c:if>
+                    <p class="w3-large">${books.description}</p>
+                    <p class="w3-large w3-text-grey w3-hide-medium"><c:out value="${book.publisher}"/></p>
+                    <p class="w3-large w3-text-grey w3-hide-medium">${books.year}</p>
                 </div>
             </div>
-
-
-        </div>
+        </c:forEach>
     </div>
 </div>
 
-
-
-
-
-<!-- Subscribe section -->
-
 </body>
 </html>
-<script>
-    function hide() {
-        document.getElementById("catalog").style.display = "none"
-    }
-
-    function myFunction() {
-        // Declare variables
-        var input, filter, ul, li, a, i, txtValue;
-        input = document.getElementById('myInput');
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("myUL");
-        li = ul.getElementsByTagName('li');
-
-        // Loop through all list items, and hide those who don't match the search query
-        for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                li[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
-            }
-        }
-    }
-</script>

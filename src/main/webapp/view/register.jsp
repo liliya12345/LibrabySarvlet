@@ -60,7 +60,7 @@
       display: flex;
       height: 100vh;
       padding: 15px;
-      background: #101010;
+      background: white;
       overflow: hidden;
     }
 
@@ -238,13 +238,3 @@
 </body>
 </html>
 
-
-
-
-
-
-
-
-
-
-<%@ include file="/WEB-INF/fragments/footer.jsp" %>

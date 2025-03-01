@@ -27,7 +27,7 @@ public class LibraryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String title = req.getParameter("search");
         Set<BookDto> allBookDtoByAuthorOrByTitle = new BookService().findAllBookDtoByAuthorOrByTitle(title);
-        req.getSession().setAttribute("books", allBookDtoByAuthorOrByTitle);
+        req.getSession().setAttribute("all", allBookDtoByAuthorOrByTitle);
 //        User user = (User) req.getSession().getAttribute("user");
 //        int userId = user.getId();
 

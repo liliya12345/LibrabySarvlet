@@ -27,6 +27,9 @@ public class BookService {
 
 return new BookDao().findBooksByAuthorName(author);
   }
+  public Book findById(Long id) {
+     return  new BookDao().findById(id);
+  }
 
   public List<BookDto> findAllBookDto(){
       List<Book> allBook = new BookDao().findAll();

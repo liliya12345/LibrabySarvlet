@@ -47,7 +47,7 @@
     <div id="Demo1" class="w3-hide w3-animate-left">
 
         <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey"
-           onclick="openMail('Searchusers');w3_close();" id="firstTab">
+           onclick="openMail('Searchuser');w3_close();" id="firstTab" >
             <div class="w3-container">
                 <div class="w3-round w3-margin-right" style="width:15%;"><span class="w3-opacity w3-large"> Users</span>
                 </div>
@@ -190,30 +190,60 @@
 <div id="id02" class="w3-modal" style="z-index:4">
     <div class="w3-modal-content w3-animate-zoom">
         <div class="w3-container w3-padding w3-red">
-       <span onclick="document.getElementById('id01').style.display='none'"
+       <span onclick="document.getElementById('id02').style.display='none'"
              class="w3-button w3-red w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
-            <h2>Add</h2>
+            <h2>Add a new user</h2>
         </div>
-
-        <div class="w3-panel">
-            <form action="/add_category" method="post">
-                <label>Category name</label>
-                <input class="w3-input w3-border w3-margin-bottom" type="text" name="name">
+        <form action="/admin/add_user" method="post">
+            <div class="w3-panel">
+                <label>Username</label>
+                <input type="text" class="form-control w3-input w3-border w3-margin-bottom" id="username"
+                       name="username" required>
+                <label>Firstname</label>
+                <input type="text" class="form-control w3-input w3-border w3-margin-bottom" id="firstname1"
+                       name="firstname" required>
+                <label>Lastname</label>
+                <input type="text" class="form-control w3-input w3-border w3-margin-bottom" id="lastname1"
+                       name="lastname" required>
+                <label> Password</label>
+                <input type="password" class="form-control w3-input w3-border w3-margin-bottom" id="password"
+                       name="password" required>
+                <label> Password again</label>
+                <input type="password" class="form-control w3-input w3-border w3-margin-bottom" id="password1"
+                       name="password1" required>
+                <label>role</label>
+                <select name="author" id="role">
+                    <c:forEach items="${users}"  var="user">
+                        <option value="${user.role}"></option>
+                    </c:forEach>
+                </select>
                 <div class="w3-section">
-                    <a class="w3-button w3-red" onclick="document.getElementById('id01').style.display='none'">Cancel
-                         <i class="fa fa-remove"></i></a>
-                    <a value="Add" class=" w3-button w3-light-grey w3-right"
-                       onclick="document.getElementById('id01').style.display='none'">Add<i
-                            class="fa fa-paper-plane"></i></a>
+                    <a class="w3-button w3-red" onclick="document.getElementById('id02').style.display='none'">Cancel<i
+                            class="fa fa-remove"></i></a>
                 </div>
-                <div class="row button">
+                <div class="w3-button">
                     <input type="submit" value="Add"/>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
+
     </div>
 </div>
-
+<c:if test="${not empty message}">
+    <div id="successMessage" class="w3-panel w3-green alettab" role="alert" aria-live="polite" aria-atomic="true">
+        <span onclick="this.parentElement.style.display='none'"
+              class="w3-button w3-large w3-position-absolut">&times;</span>
+            ${message}
+    </div>
+</c:if>
+<c:if test="${not empty error}">
+    <div id="errorMessage" class="w3-panel w3-red" role="alert" aria-live="polite" aria-atomic="true">
+        <span onclick="this.parentElement.style.display='none'"
+              class="w3-button w3-large w3-display-topright"
+              aria-label="Close error message">&times;</span>
+            ${error}
+    </div>
+</c:if>
 <!-- Overlay effect when opening the side navigation on small screens -->
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
      title="Close Sidemenu" id="myOverlay"></div>
@@ -273,8 +303,7 @@
         <br>
         <c:if test="${user.role=='admin'}">
             <div class="w3-container">
-                <h2>Striped Table</h2>
-                <p>The w3-striped class adds zebra-stripes to a table:</p>
+                <h2>Users Table</h2>
 
                 <table class="w3-table w3-striped">
                     <tr>
@@ -310,30 +339,103 @@
                 <input name="search" id="myInput"
                        type="search" style="height: 38px" size="70" placeholder="Search for title or author"
                        aria-label="Search"/>
-                <button type="submit" class="w3-button w3-red" style="height: 38px">Search</button>
+                <button type="submit"   onclick="openMail('Searchbook')" class="w3-button w3-red" style="height: 38px">Search</button>
+            </form>
+        </div>
+
+        <c:if test="${user.role=='admin'}">
+
+                <div class="w3-container">
+                    <h2>Striped Table</h2>
+                    <p>The w3-striped class adds zebra-stripes to a table:</p>
+
+                    <table class="w3-table w3-striped">
+                        <tr>
+                            <th>Title</th>
+                            <th>year</th>
+                            <th>Author</th>
+                            <th>description</th>
+                            <th>Status</th>
+
+                        </tr>
+                        <c:forEach items="${bookbysearch}" var="book">
+                            <tr>
+                                <td>${book.title}<a href="javascript:void(0)"
+                                                    class=" w3-hover-black "
+                                                    onclick="document.getElementById('id02').style.display='block'"><i
+                                        class="w3-padding fa fa-pencil"></i></a></td>
+                                <td>${book.year}<a href="javascript:void(0)"
+                                                   class=" w3-hover-black "
+                                                   onclick="document.getElementById('id02').style.display='block'"><i
+                                        class="w3-padding fa fa-pencil"></i></a></td>
+                                <td>${book.author[0].firstName} <br/>${book.author[0].lastName}<a href="javascript:void(0)"
+                                                                                                  class=" w3-hover-black "
+                                                                                                  onclick="document.getElementById('id02').style.display='block'"><i
+                                        class="w3-padding fa fa-pencil"></i></a></td>
+                                <td>${book.description}<a href="javascript:void(0)"
+                                                          class=" w3-hover-black "
+                                                          onclick="document.getElementById('id02').style.display='block'"><i
+                                        class="w3-padding fa fa-pencil"></i></a></td>
+                                <td>${book.status}</td>
+                            </tr>
+                        </c:forEach>
+
+
+                    </table>
+                </div>
+
+        </c:if>
+
+    </div>
+
+
+    <div id="Searchuser" class="w3-container person">
+        <div class="w3-container w3-white w3-main">
+            <h1 class="w3-center">Search users by username or id</h1>
+            <form action="/searchuser" method="get"
+                  class="w3-flex flex-sm-row flex-column w3-center justify-content-center w3-margin">
+                <input name="search1" id="myInput2"
+                       type="search" style="height: 38px" size="70" placeholder="Search by username or id"
+                       aria-label="Search"/>
+                <button type="submit" onclick="openMail('Searchuser')" class="w3-button w3-red" style="height: 38px">Search</button>
             </form>
         </div>
         <c:if test="${user.role=='admin'}">
             <div class="w3-container">
-                <h2>Striped Table</h2>
-                <p>The w3-striped class adds zebra-stripes to a table:</p>
+                <h2>Users Table</h2>
 
                 <table class="w3-table w3-striped">
                     <tr>
-                        <th>Title</th>
-                        <th>year</th>
-                        <th>Author</th>
-                        <th>description</th>
-                        <th>Status</th>
-
+                        <th>id</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Date of create</th>
                     </tr>
-                    <c:forEach items="${bookbysearch}" var="book">
+                    <c:forEach items="${users}" var="user">
                         <tr>
-                            <td>${book.title}</td>
-                            <td>${book.year}</td>
-                            <td>${book.author[0].firstName} <br/>${book.author[0].lastName}</td>
-                            <td>${book.description}</td>
-                            <td>${book.status}</td>
+                            <td> <a href="javascript:void(0)"
+                                    class=" w3-hover-black "
+                                    onclick="document.getElementById('id02').style.display='block'"><i
+                                    class="w3-padding fa fa-pencil"></i></a>${user.id}</td>
+                            <td> <a href="javascript:void(0)"
+                                    class=" w3-hover-black "
+                                    onclick="document.getElementById('id02').style.display='block'"><i
+                                    class="w3-padding fa fa-pencil"></i></a>${user.firstname}</td>
+                            <td><a href="javascript:void(0)"
+                                   class=" w3-hover-black "
+                                   onclick="document.getElementById('id02').style.display='block'"><i
+                                    class="w3-padding fa fa-pencil"></i></a>${user.lastname}</td>
+                            <td><a href="javascript:void(0)"
+                                   class=" w3-hover-black "
+                                   onclick="document.getElementById('id02').style.display='block'"><i
+                                    class="w3-padding fa fa-pencil"></i></a>${user.username}</td>
+                            <td><a href="javascript:void(0)"
+                                   class=" w3-hover-black "
+                                   onclick="document.getElementById('id02').style.display='block'"><i
+                                    class="w3-padding fa fa-pencil"></i></a>${user.role}</td>
+                            <td>${user.created}</td>
                         </tr>
                     </c:forEach>
 
@@ -343,6 +445,9 @@
 
         </c:if>
     </div>
+
+
+
 
 </div>
 
@@ -372,7 +477,23 @@
         }
     }
 
-    openMail("Borge")
+    openMail("Searchbook")
+
+    function openMail(personName) {
+        var i;
+        var x = document.getElementsByClassName("person");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x = document.getElementsByClassName("test");
+        for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" w3-light-grey", "");
+        }
+        document.getElementById(personName).style.display = "block";
+        document.getElementById("Searchbook").style.display = "block";
+        event.currentTarget.className += " w3-light-grey";
+    }
+    openMail("Searchuser")
 
     function openMail(personName) {
         var i;
@@ -391,6 +512,8 @@
 
 <script>
     var openTab = document.getElementById("Searchbook");
+    openTab.click();
+    var openTab = document.getElementById("Searchuser");
     openTab.click();
 </script>
 

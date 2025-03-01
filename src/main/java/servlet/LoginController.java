@@ -1,5 +1,6 @@
 package servlet;
 import dao.UserDao;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,7 +9,9 @@ import jakarta.servlet.http.HttpSession;
 import model.User;
 import util.HashingUtil;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.Optional;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
@@ -51,6 +54,18 @@ public class LoginController extends HttpServlet {
         UserDao userDAO = new UserDao();
         User user = null;
 
+
+        Optional<User> first = new UserDao().findAll().stream().filter(u -> u.getUsername().equals(username)).findFirst();
+        if(first.isPresent()) {
+            user = first.get();
+            if(!HashingUtil.Verify(password, user.getPassword())){
+                error(req, res, "Invalid password!", username);
+                req.setAttribute("message", "You have Invalid password");
+
+            }
+        }else req.setAttribute("message", "You have a wrongg username");
+
+
         try {
             user = userDAO.getUser(username);
             if(user == null){
@@ -58,7 +73,9 @@ public class LoginController extends HttpServlet {
                 return;
             }
             if(!HashingUtil.Verify(password, user.getPassword())){
+
                 error(req, res, "Wrong password", username);
+                res.sendRedirect(req.getContextPath() + "/user");
                 return;
             }
 
@@ -85,7 +102,8 @@ public class LoginController extends HttpServlet {
 
         try {
             System.out.println("Returning with error: " + error);
-            req.getRequestDispatcher("/view/login.jsp").forward(req, res);
+            res.sendRedirect(req.getContextPath() + "/login");
+//            req.getRequestDispatcher("/view/login.jsp").forward(req, res);
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }

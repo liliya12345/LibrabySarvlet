@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageTitle" value="GritCRM - Login"/>
+<c:set var="pageTitle" value="Login"/>
 <%@ include file="../WEB-INF/fragments/header.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -158,20 +158,25 @@
 
 </head>
 <body align="center">
+<c:if test="${not empty message}">
+    <div id="successMessage" class="w3-panel w3-green alettab" role="alert" aria-live="polite" aria-atomic="true">
+        <span onclick="this.parentElement.style.display='none'"
+              class="w3-button w3-large w3-position-absolut">&times;</span>
+            ${message}
+    </div>
+</c:if>
+<c:if test="${not empty error}">
+    <div id="errorMessage" class="w3-panel w3-red" role="alert" aria-live="polite" aria-atomic="true">
+        <span onclick="this.parentElement.style.display='none'"
+              class="w3-button w3-large w3-display-topright"
+              aria-label="Close error message">&times;</span>
+            ${error}
+    </div>
+</c:if>
 <div class="loginform" style="justify-content: center">
     <div class="wrapper">
         <div class="title"><span>Login Form</span></div>
         <form action="/login" method="post" align="center">
-            <c:if test="${not empty error}">
-                <div class="alert alert-danger">
-                        ${error}
-                </div>
-            </c:if>
-            <c:if test="${not empty message}">
-                <div class="alert alert-success" role="alert">
-                        ${message}
-                </div>
-            </c:if>
             <div class="row">
                 <i class="fas fa-user"></i>
                 <input type="text" placeholder="name" name="username" required/>

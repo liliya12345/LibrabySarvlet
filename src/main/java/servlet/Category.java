@@ -34,8 +34,8 @@ public class Category extends HttpServlet {
             getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
         } catch (NumberFormatException e) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid category ID");
-        } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred");
         }
+//        resp.sendRedirect(req.getContextPath() + "/");
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }

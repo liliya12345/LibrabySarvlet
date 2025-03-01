@@ -281,11 +281,14 @@
 <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container w3-padding-16">
         <i onclick="" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-        <h3 class="w3-wide"><b>Biblio</b></h3>
+        <h3 class="w3-wide">
+            <b>
+                <a href="/">Biblio</a>
+            </b></h3>
     </div>
 
     <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-        <a href="/" class="w3-bar-item w3-button">Books</a>
+        <a href="" class="w3-bar-item w3-button">Books</a>
         <a onclick="" href="" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
             Media <i class="fa fa-caret-down"></i>
         </a>
@@ -319,14 +322,27 @@
     <!-- Top header -->
     <header class="w3-container w3-xlarge">
         <a href="/logout" class="fa fa-sign-out w3-right w3-padding-large"></a>
-        <a href="/" class="fa fa-meh-o w3-right w3-padding-large"></a>
+        <a href="/user" class="fa fa-meh-o w3-right w3-padding-large"></a>
 
     </header>
 
     <div class="w3-display-container w3-container">
         <img src="https://linkarkitektur.com/sites/default/files/styles/background_full_wide/public/node/field_image/SKHLM_bibliotek_001.jpg?itok=820R0M2y"
              alt="library" style="width:100%">
-
+        <c:if test="${not empty success}">
+            <div id="successMessage" class="w3-panel w3-green alettab" role="alert" aria-live="polite"
+                 aria-atomic="true"><span onclick="this.parentElement.style.display='none'"
+                                          class="w3-button w3-large w3-position-absolut">&times;</span>
+                    ${success}
+            </div>
+        </c:if>
+        <c:if test="${not empty error}">
+            <div id="errorMessage" class="w3-panel w3-red" role="alert" aria-live="polite" aria-atomic="true"><span
+                    onclick="this.parentElement.style.display='none'" class="w3-button w3-large w3-display-topright"
+                    aria-label="Close error message">&times;</span>
+                    ${error}
+            </div>
+        </c:if>
         <div class="w3-display-topleft w3-text-black" style="padding:24px 48px">
             <h1 class="w3-jumbo w3-hide-small">Aktuella evenemang</h1>
             <h1 class="w3-hide-large w3-hide-medium">Se alla evenemang</h1>
@@ -341,13 +357,13 @@
                 <title>Min sida</title>
                 <div class="w3-container  w3-main">
                     <h1 class="w3-center">Min sida</h1>
-                    <p class="w3-center">Min lan</p>
 
 
                     <table>
-                        <%User user = (User) request.getSession().getAttribute("user");
+                        <%
+                            User user = (User) request.getSession().getAttribute("user");
                             int id = user.getId();
-                            int count=1;
+                            int count = 1;
                         %>
                         <tr>
                             <th></th>
@@ -357,38 +373,142 @@
                             <th>Status</th>
 
                         </tr>
-                        <p class="w3-center"><%=user.getUsername().toUpperCase()%>
-                                <% for (UserBook userBook : new UserBookDao().findUserBooksByUsersId(id)) {%>
-                            <tr>
-                                <th><%= count++%>
-                                </th>
-                                <th><%= userBook.getBook().getTitle()%>
-                                </th>
-                                <th><%= userBook.getDateOfLoan()%> <a
-                                        href="/lan/" type="button"
-                                        class=" w3-center w3-button w3-red"
-                                        style="height: 38px">LÅNA OM
-                                </a></th>
-                                <th><%= userBook.getDateOfReturn()%> <a
-                                        href="/return/<%= userBook.getBook().getId()%>" type="button"
-                                        class=" w3-center w3-button w3-red"
-                                        style="height: 38px">Return
-                                </a></th>
-                                <th>
-                                    <%= userBook.isReturned()%>
-                                </th>
-                            </tr>
-                                <%}%>
+                        <p class="w3-center">username <%=user.getUsername().toUpperCase()%>
+                            <a href="javascript:void(0)"
+                               class="w3-hover-black"
+                               onclick="document.getElementById('id01').style.display='block'"><i
+                                    class="w3-padding fa fa-pencil"></i></a>
+                        </p>
+                        <p class="w3-center"><%=user.getFirsName()%> <a href="javascript:void(0)"
+                                                                        class=" w3-hover-black "
+                                                                        onclick="document.getElementById('id02').style.display='block'"><i
+                                class="w3-padding fa fa-pencil"></i></a></p>
+                        <p class="w3-center"><%=user.getLastName()%><a href="javascript:void(0)"
+                                                                       class=" w3-hover-black "
+                                                                       onclick="document.getElementById('id03').style.display='block'"><i
+                                class="w3-padding fa fa-pencil"></i></a></p>
+                        <p class="w3-center">Last inlogling at <%=user.getLastLogin()%>
+                        </p>
+                        <p class="w3-center">Created at<%=user.getCreated()%>
+                        </p>
+                        <p class="w3-center">Total <%=user.getUserBook().size()%> böcker</p>
+                        <% for (UserBook userBook : new UserBookDao().findUserBooksByUsersId(id)) {%>
+                        <tr>
+                            <th><%= count++%>
+                            </th>
+                            <th><%= userBook.getBook().getTitle()%>
+                            </th>
+
+                            <th><%= userBook.getDateOfLoan()%> <a
+                                    href="/loan/<%= userBook.getBook().getId()%>" type="button"
+                                    class=" w3-center w3-button w3-red"
+                                    style="height: 38px">LÅNA OM
+                            </a></th>
+                            <th><%= userBook.getDateOfReturn()%> <a
+                                    href="/return/<%= userBook.getBook().getId()%>" type="button"
+                                    class=" w3-center w3-button w3-red"
+                                    style="height: 38px">Return
+                            </a></th>
+                            <th>
+
+                                <%--                                    <c:if test="${value}">--%>
+                                <%--                        <div id="errorMessage" class="w3-panel w3-red" role="alert" aria-live="polite"--%>
+                                <%--                             aria-atomic="true">--%>
+                                <%--        <span onclick="this.parentElement.style.display='none'"--%>
+                                <%--              class="w3-button w3-large w3-display-topright"--%>
+                                <%--              aria-label="Close error message">&times;</span>--%>
+                                <%--                                ${value}--%>
+                                <%--                        </div>--%>
+                                <%--                        </c:if>--%>
+                                <% if(userBook.isReturned()){%>
+                                    Returned
+                                    <%} else{%>
+                                    Booked
+                                    <%}%>
+<%--                                <c:if test="${userBook.isReturned()}"> Returned</c:if>--%>
+<%--                                <c:if test="${!userBook.isReturned()}"> Booked</c:if>--%>
+                            </th>
+                        </tr>
+                        <%}%>
                     </table>
 
                 </div>
             </div>
         </div>
+        <div id="id01" class="w3-modal" style="z-index:4">
+            <div class="w3-modal-content w3-animate-zoom">
+                <div class="w3-container w3-padding w3-red">
+       <span onclick="document.getElementById('id01').style.display='none'"
+             class="w3-button w3-red w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
+                    <h2>Change your username</h2>
+                </div>
+                <form action="/user/change_username" method="post">
+                    <div class="w3-panel">
+                        <label>New Username</label>
+                        <input type="text" class="form-control w3-input w3-border w3-margin-bottom" id="userName"
+                               name="username" required>
+                        <div class="w3-section">
+                            <a class="w3-button w3-red" onclick="document.getElementById('id01').style.display='none'">Cancel<i
+                                    class="fa fa-remove"></i></a>
+                        </div>
+                        <div class="w3-button">
+                            <input type="submit" value="Add"/>
+                        </div>
+                    </div>
+                </form>
 
+            </div>
+        </div>
+        <div id="id02" class="w3-modal" style="z-index:4">
+            <div class="w3-modal-content w3-animate-zoom">
+                <div class="w3-container w3-padding w3-red">
+       <span onclick="document.getElementById('id02').style.display='none'"
+             class="w3-button w3-red w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
+                    <h2>Change your firstname</h2>
+                </div>
+                <form action="/user/change_firstname" method="post">
+                    <div class="w3-panel">
+                        <label>New Firstname</label>
+                        <input type="text" class="form-control w3-input w3-border w3-margin-bottom" id="firstName"
+                               name="firstname" required>
+                        <div class="w3-section">
+                            <a class="w3-button w3-red" onclick="document.getElementById('id01').style.display='none'">Cancel<i
+                                    class="fa fa-remove"></i></a>
+                        </div>
+                        <div class="w3-button">
+                            <input type="submit" value="Add"/>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div id="id03" class="w3-modal" style="z-index:4">
+            <div class="w3-modal-content w3-animate-zoom">
+                <div class="w3-container w3-padding w3-red">
+       <span onclick="document.getElementById('id03').style.display='none'"
+             class="w3-button w3-red w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
+                    <h2>Change your Lastname</h2>
+                </div>
+                <form action="/user/change_lastname" method="post">
+                    <div class="w3-panel">
+                        <label>New Lastname</label>
+                        <input type="text" class="form-control w3-input w3-border w3-margin-bottom" id="lastName"
+                               name="lastname" required>
+                        <div class="w3-section">
+                            <a class="w3-button w3-red" onclick="document.getElementById('id03').style.display='none'">Cancel<i
+                                    class="fa fa-remove"></i></a>
+                        </div>
+                        <div class="w3-button">
+                            <input type="submit" value="Add"/>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
 
     </div>
-
-
 
 
 </div>
@@ -423,3 +543,7 @@
         }
     }
 </script>
+
+
+
+
