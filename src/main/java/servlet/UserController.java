@@ -50,6 +50,7 @@ public class UserController extends HttpServlet {
                 new UserDao().update(user);
                 resp.sendRedirect(req.getContextPath() + "/user");
             }
+
         } catch (ServiceException e) {
             req.setAttribute("error", "Failed to add category: " + e.getMessage());
 

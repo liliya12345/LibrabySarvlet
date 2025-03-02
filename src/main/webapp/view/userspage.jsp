@@ -411,15 +411,6 @@
                             </a></th>
                             <th>
 
-                                <%--                                    <c:if test="${value}">--%>
-                                <%--                        <div id="errorMessage" class="w3-panel w3-red" role="alert" aria-live="polite"--%>
-                                <%--                             aria-atomic="true">--%>
-                                <%--        <span onclick="this.parentElement.style.display='none'"--%>
-                                <%--              class="w3-button w3-large w3-display-topright"--%>
-                                <%--              aria-label="Close error message">&times;</span>--%>
-                                <%--                                ${value}--%>
-                                <%--                        </div>--%>
-                                <%--                        </c:if>--%>
                                 <% if(userBook.isReturned()){%>
                                     Returned
                                     <%} else{%>
@@ -442,7 +433,7 @@
              class="w3-button w3-red w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
                     <h2>Change your username</h2>
                 </div>
-                <form action="/user/change_username" method="post">
+                <form action="/searchuser/change_username" method="post">
                     <div class="w3-panel">
                         <label>New Username</label>
                         <input type="text" class="form-control w3-input w3-border w3-margin-bottom" id="userName"
@@ -466,7 +457,7 @@
              class="w3-button w3-red w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
                     <h2>Change your firstname</h2>
                 </div>
-                <form action="/user/change_firstname" method="post">
+                <form action="/searchuser/change_firstname" method="post">
                     <div class="w3-panel">
                         <label>New Firstname</label>
                         <input type="text" class="form-control w3-input w3-border w3-margin-bottom" id="firstName"
@@ -490,7 +481,7 @@
              class="w3-button w3-red w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
                     <h2>Change your Lastname</h2>
                 </div>
-                <form action="/user/change_lastname" method="post">
+                <form action="/searchuser/change_lastname" method="post">
                     <div class="w3-panel">
                         <label>New Lastname</label>
                         <input type="text" class="form-control w3-input w3-border w3-margin-bottom" id="lastName"

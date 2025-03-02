@@ -314,7 +314,7 @@
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container w3-padding-16">
-        <i onclick="" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+        <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
         <h3 class="w3-wide">
             <a href="/">
                 Biblio
@@ -324,14 +324,15 @@
 
     <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
         <a href="/" class="w3-bar-item w3-button">Books</a>
-        <a onclick="" href="" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
+        <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
             Media <i class="fa fa-caret-down"></i>
-        </a>
+
         <%--        <#list categories as category>--%>
         <%--        <a href="/books/${category.id}" class="w3-bar-item w3-button">${category.name}</a>--%>
         <%--    </#list>--%>
+
         <% for (Category category : new CategoryDao().findAll()) {%>
-        <a href="/category/<%= category.getId()%>" class="w3-bar-item w3-button"><%= category.getName()%>
+            <a href="/category/<%= category.getId()%>" class="w3-bar-item w3-button"><%= category.getName()%></a>
 
         </a>
 
@@ -340,15 +341,12 @@
 
 </nav>
 
+
+
 <!-- Top menu on small screens -->
 <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-    <div class="w3-bar-item w3-padding-24 w3-wide">
-        <a href="/" class="fa fa-meh-o w3-right w3-padding-large">
-            LOGO
-        </a>
-    </div>
-    <a href="" class="w3-bar-item w3-button w3-padding-24 w3-right"><i
-            class="fa fa-bars"></i></a>
+    <div class="w3-bar-item w3-padding-24 w3-wide">LOGO</div>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
 </header>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -502,5 +500,36 @@
                 li[i].style.display = "none";
             }
         }
+    }
+    function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+    function myAccFunc() {
+        var x = document.getElementById("demoAcc");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+
+    // Click on the "Jeans" link on page load to open the accordion for demo purposes
+    document.getElementById("myBtn").click();
+
+
+    // Open and close sidebar
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+        document.getElementById("myOverlay").style.display = "block";
+    }
+
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+        document.getElementById("myOverlay").style.display = "none";
     }
 </script>

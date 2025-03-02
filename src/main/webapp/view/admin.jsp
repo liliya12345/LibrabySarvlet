@@ -46,10 +46,10 @@
             class="fa fa-inbox w3-margin-right"></i>Admin Panel<i class="fa fa-caret-down w3-margin-left"></i></a>
     <div id="Demo1" class="w3-hide w3-animate-left">
 
-        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey"
-           onclick="openMail('Searchuser');w3_close();" id="firstTab" >
+        <a href="/searchuser" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey"
+           >
             <div class="w3-container">
-                <div class="w3-round w3-margin-right" style="width:15%;"><span class="w3-opacity w3-large"> Users</span>
+                <div class="w3-round w3-margin-right" style="width:15%;"><span class="w3-opacity w3-large"> User</span>
                 </div>
                 <h6> Search,Change,Detele,History</h6>
             </div>
@@ -63,9 +63,9 @@
             </div>
         </a>
         <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey"
-           onclick="openMail('Searchbook');w3_close();" id="secondTab">
+           onclick="openMail('SearchByB');w3_close();">
             <div class="w3-container">
-                <div class="w3-round w3-margin-right" style="width:15%;"><span class="w3-opacity w3-large"> Books</span>
+                <div class="w3-round w3-margin-right" style="width:15%;"><span class="w3-opacity w3-large"> Book</span>
                 </div>
                 <h6> Search,Change,Detele,History</h6>
             </div>
@@ -163,13 +163,13 @@
                        name="publisher" required>
                 <label>author</label>
                 <select name="author" id="author">
-                    <c:forEach items="${authors}"  var="author">
-                    <option value="${author.id}">${author.firstName} ${author.lastName}</option>
+                    <c:forEach items="${authors}" var="author">
+                        <option value="${author.id}">${author.firstName} ${author.lastName}</option>
                     </c:forEach>
                 </select>
                 <label>category</label>
                 <select name="category" id="category">
-                    <c:forEach items="${category}"  var="category">
+                    <c:forEach items="${category}" var="category">
                         <option value="${category.id}">${category.name}</option>
                     </c:forEach>
                 </select>
@@ -213,7 +213,7 @@
                        name="password1" required>
                 <label>role</label>
                 <select name="author" id="role">
-                    <c:forEach items="${users}"  var="user">
+                    <c:forEach items="${users}" var="user">
                         <option value="${user.role}"></option>
                     </c:forEach>
                 </select>
@@ -255,10 +255,10 @@
 
 <!-- Page content -->
 <div class="w3-main" style="margin-left:320px;">
-    <i class="fa fa-bars w3-button w3-white w3-hide-large w3-xlarge w3-margin-left w3-margin-top"
-       onclick="w3_open()"></i>
-    <a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right"
-       onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-pencil"></i></a>
+        <i class="fa fa-bars w3-button w3-white w3-hide-large w3-xlarge w3-margin-left w3-margin-top"
+           onclick="w3_open()"></i>
+        <a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right"
+           onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-pencil"></i></a>
 
     <div id="Users" class="w3-container person">
         <br>
@@ -267,8 +267,7 @@
 
         <c:if test="${user.role=='admin'}">
             <div class="w3-container">
-                <h2>Striped Table</h2>
-                <p>The w3-striped class adds zebra-stripes to a table:</p>
+                <h2>Users</h2>
 
                 <table class="w3-table w3-striped">
                     <tr>
@@ -303,7 +302,7 @@
         <br>
         <c:if test="${user.role=='admin'}">
             <div class="w3-container">
-                <h2>Users Table</h2>
+                <h2>Books</h2>
 
                 <table class="w3-table w3-striped">
                     <tr>
@@ -329,9 +328,13 @@
             </div>
 
         </c:if>
+        <c:if test="${user.role!='admin'}">
+            <h1>Forbidden</h1>
+
+        </c:if>
     </div>
 
-    <div id="Searchbook" class="w3-container person">
+    <div id="SearchByB" class="w3-container person">
         <div class="w3-container w3-white w3-main">
             <h1 class="w3-center">Search book by author or title</h1>
             <form action="/searchadmin" method="get"
@@ -339,103 +342,45 @@
                 <input name="search" id="myInput"
                        type="search" style="height: 38px" size="70" placeholder="Search for title or author"
                        aria-label="Search"/>
-                <button type="submit"   onclick="openMail('Searchbook')" class="w3-button w3-red" style="height: 38px">Search</button>
+                <button type="submit" onclick="openMail('SearchByB');w3_close();" class="w3-button w3-red"
+                        style="height: 38px">Search
+                </button>
             </form>
         </div>
 
-        <c:if test="${user.role=='admin'}">
-
-                <div class="w3-container">
-                    <h2>Striped Table</h2>
-                    <p>The w3-striped class adds zebra-stripes to a table:</p>
-
-                    <table class="w3-table w3-striped">
-                        <tr>
-                            <th>Title</th>
-                            <th>year</th>
-                            <th>Author</th>
-                            <th>description</th>
-                            <th>Status</th>
-
-                        </tr>
-                        <c:forEach items="${bookbysearch}" var="book">
-                            <tr>
-                                <td>${book.title}<a href="javascript:void(0)"
-                                                    class=" w3-hover-black "
-                                                    onclick="document.getElementById('id02').style.display='block'"><i
-                                        class="w3-padding fa fa-pencil"></i></a></td>
-                                <td>${book.year}<a href="javascript:void(0)"
-                                                   class=" w3-hover-black "
-                                                   onclick="document.getElementById('id02').style.display='block'"><i
-                                        class="w3-padding fa fa-pencil"></i></a></td>
-                                <td>${book.author[0].firstName} <br/>${book.author[0].lastName}<a href="javascript:void(0)"
-                                                                                                  class=" w3-hover-black "
-                                                                                                  onclick="document.getElementById('id02').style.display='block'"><i
-                                        class="w3-padding fa fa-pencil"></i></a></td>
-                                <td>${book.description}<a href="javascript:void(0)"
-                                                          class=" w3-hover-black "
-                                                          onclick="document.getElementById('id02').style.display='block'"><i
-                                        class="w3-padding fa fa-pencil"></i></a></td>
-                                <td>${book.status}</td>
-                            </tr>
-                        </c:forEach>
-
-
-                    </table>
-                </div>
-
-        </c:if>
-
-    </div>
-
-
-    <div id="Searchuser" class="w3-container person">
-        <div class="w3-container w3-white w3-main">
-            <h1 class="w3-center">Search users by username or id</h1>
-            <form action="/searchuser" method="get"
-                  class="w3-flex flex-sm-row flex-column w3-center justify-content-center w3-margin">
-                <input name="search1" id="myInput2"
-                       type="search" style="height: 38px" size="70" placeholder="Search by username or id"
-                       aria-label="Search"/>
-                <button type="submit" onclick="openMail('Searchuser')" class="w3-button w3-red" style="height: 38px">Search</button>
-            </form>
-        </div>
         <c:if test="${user.role=='admin'}">
             <div class="w3-container">
-                <h2>Users Table</h2>
+                <div class="w3-container">
+                    <h2>Book</h2>
 
                 <table class="w3-table w3-striped">
                     <tr>
-                        <th>id</th>
-                        <th>FirstName</th>
-                        <th>LastName</th>
-                        <th>Username</th>
-                        <th>Role</th>
-                        <th>Date of create</th>
+                        <th>Title</th>
+                        <th>year</th>
+                        <th>Author</th>
+                        <th>description</th>
+                        <th>Status</th>
+
                     </tr>
-                    <c:forEach items="${users}" var="user">
+                    <c:forEach items="${bookbysearch}" var="book">
                         <tr>
-                            <td> <a href="javascript:void(0)"
-                                    class=" w3-hover-black "
-                                    onclick="document.getElementById('id02').style.display='block'"><i
-                                    class="w3-padding fa fa-pencil"></i></a>${user.id}</td>
-                            <td> <a href="javascript:void(0)"
-                                    class=" w3-hover-black "
-                                    onclick="document.getElementById('id02').style.display='block'"><i
-                                    class="w3-padding fa fa-pencil"></i></a>${user.firstname}</td>
-                            <td><a href="javascript:void(0)"
-                                   class=" w3-hover-black "
-                                   onclick="document.getElementById('id02').style.display='block'"><i
-                                    class="w3-padding fa fa-pencil"></i></a>${user.lastname}</td>
-                            <td><a href="javascript:void(0)"
-                                   class=" w3-hover-black "
-                                   onclick="document.getElementById('id02').style.display='block'"><i
-                                    class="w3-padding fa fa-pencil"></i></a>${user.username}</td>
-                            <td><a href="javascript:void(0)"
-                                   class=" w3-hover-black "
-                                   onclick="document.getElementById('id02').style.display='block'"><i
-                                    class="w3-padding fa fa-pencil"></i></a>${user.role}</td>
-                            <td>${user.created}</td>
+                            <td>${book.title}<a href="javascript:void(0)"
+                                                class=" w3-hover-black "
+                                                onclick="document.getElementById('id02').style.display='block'"><i
+                                    class="w3-padding fa fa-pencil"></i></a></td>
+                            <td>${book.year}<a href="javascript:void(0)"
+                                               class=" w3-hover-black "
+                                               onclick="document.getElementById('id02').style.display='block'"><i
+                                    class="w3-padding fa fa-pencil"></i></a></td>
+                            <td>${book.author[0].firstName} <br/>${book.author[0].lastName}<a href="javascript:void(0)"
+                                                                                              class=" w3-hover-black "
+                                                                                              onclick="document.getElementById('id02').style.display='block'"><i
+                                    class="w3-padding fa fa-pencil"></i></a></td>
+                            <td>${book.description}<a href="javascript:void(0)"
+                                                      class=" w3-hover-black "
+                                                      onclick="document.getElementById('id02').style.display='block'"><i
+                                    class="w3-padding fa fa-pencil"></i></a></td>
+                            <td>${book.status}</td>
                         </tr>
                     </c:forEach>
 
@@ -444,11 +389,16 @@
             </div>
 
         </c:if>
+        <c:if test="${user.role!='admin'}">
+            <h1>Forbidden</h1>
+
+        </c:if>
+
+
     </div>
 
 
-
-
+</div>
 </div>
 
 <script>
@@ -477,7 +427,7 @@
         }
     }
 
-    openMail("Searchbook")
+    openMail("SearchByB")
 
     function openMail(personName) {
         var i;
@@ -490,32 +440,14 @@
             x[i].className = x[i].className.replace(" w3-light-grey", "");
         }
         document.getElementById(personName).style.display = "block";
-        document.getElementById("Searchbook").style.display = "block";
+        // document.getElementById("Searchbook").style.display = "block";
         event.currentTarget.className += " w3-light-grey";
     }
-    openMail("Searchuser")
 
-    function openMail(personName) {
-        var i;
-        var x = document.getElementsByClassName("person");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        x = document.getElementsByClassName("test");
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" w3-light-grey", "");
-        }
-        document.getElementById(personName).style.display = "block";
-        event.currentTarget.className += " w3-light-grey";
-    }
+
+
 </script>
 
-<script>
-    var openTab = document.getElementById("Searchbook");
-    openTab.click();
-    var openTab = document.getElementById("Searchuser");
-    openTab.click();
-</script>
 
 </body>
 </html>
