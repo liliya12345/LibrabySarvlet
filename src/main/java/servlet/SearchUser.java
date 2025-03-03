@@ -25,27 +25,27 @@ public class SearchUser extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String pathInfo = req.getPathInfo();
         String search = req.getParameter("search1");
-//        req.getSession().setAttribute("search", search);
-        User us = new UserDao().getUser(search);
-
-        if (Objects.equals(pathInfo, "/change_username")) {
-            String username = req.getParameter("username");
-            us.setUsername(username);
-            new UserDao().update(us);
-            resp.sendRedirect(req.getContextPath() + "/searchuser");
-
-
-        } else if (Objects.equals(pathInfo, "/change_firstname")) {
-            String firstname = req.getParameter("firstname");
-            us.setFirsName(firstname);
-            new UserDao().update(us);
-            resp.sendRedirect(req.getContextPath() + "/searchuser");
-        }else if (Objects.equals(pathInfo, "/change_lastname")) {
-            String lastname = req.getParameter("lastname");
-            us.setLastName(lastname);
-            new UserDao().update(us);
-            resp.sendRedirect(req.getContextPath() + "/searchuser");
-        }
+        req.getSession().setAttribute("search", search);
+//        User us = new UserDao().getUser(search);
+//
+//        if (Objects.equals(pathInfo, "/change_username")) {
+//            String username = req.getParameter("username");
+//            us.setUsername(username);
+//            new UserDao().update(us);
+//            resp.sendRedirect(req.getContextPath() + "/searchuser");
+//
+//
+//        } else if (Objects.equals(pathInfo, "/change_firstname")) {
+//            String firstname = req.getParameter("firstname");
+//            us.setFirsName(firstname);
+//            new UserDao().update(us);
+//            resp.sendRedirect(req.getContextPath() + "/searchuser");
+//        }else if (Objects.equals(pathInfo, "/change_lastname")) {
+//            String lastname = req.getParameter("lastname");
+//            us.setLastName(lastname);
+//            new UserDao().update(us);
+//            resp.sendRedirect(req.getContextPath() + "/searchuser");
+//        }
 
 ////                req.getSession().setAttribute("id", id);
 ////                req.getSession().setAttribute("firstname", user.getFirsName());
@@ -85,7 +85,42 @@ public class SearchUser extends HttpServlet {
         Set<Book> result = new HashSet<>();
         String title = req.getParameter("search1");
 //        req.getSession().setAttribute("users", allBookDtoByAuthorOrByTitle);
-        req.getRequestDispatcher("/view/admin.jsp").forward(req, resp);
+//        String pathInfo = req.getPathInfo();
+//        String search = req.getParameter("search1");
+//        req.getSession().setAttribute("search", search);
 
+
+//        if (Objects.equals(pathInfo, "/change_username")) {
+//            User us = new UserDao().getUser(search);
+//            if (us != null) {
+//                String username = req.getParameter("username");
+//                us.setUsername(username);
+//                new UserDao().update(us);
+//                resp.sendRedirect(req.getContextPath() + "/searchuser");
+//            }
+//            resp.sendRedirect(req.getContextPath() + "/searchuser");
+//
+//
+//        } else if (Objects.equals(pathInfo, "/change_firstname")) {
+//            User us = new UserDao().getUser(search);
+//            if (us != null) {
+//                String firstname = req.getParameter("firstname");
+//                us.setFirsName(firstname);
+//                new UserDao().update(us);
+//                resp.sendRedirect(req.getContextPath() + "/searchuser");
+//            }
+//            resp.sendRedirect(req.getContextPath() + "/searchuser");
+//        } else if (Objects.equals(pathInfo, "/change_lastname")) {
+//            User us = new UserDao().getUser(search);
+//            if (us != null) {
+//                String lastname = req.getParameter("lastname");
+//                us.setLastName(lastname);
+//                new UserDao().update(us);
+//                resp.sendRedirect(req.getContextPath() + "/searchuser");
+//            }
+//
+//            resp.sendRedirect(req.getContextPath() + "/searchuser");
+//        }
+        resp.sendRedirect(req.getContextPath() + "/searchuser");
     }
 }

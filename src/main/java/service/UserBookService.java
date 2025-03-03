@@ -1,8 +1,6 @@
 package service;
 
 import dao.UserBookDao;
-import dao.UserDao;
-import jakarta.servlet.http.HttpServletResponse;
 import model.UserBook;
 
 import java.time.LocalDate;
@@ -27,13 +25,14 @@ public class UserBookService {
   return false;
 
     }
-    public void uppdateDateOfReturn(int userId, Long bookId){
+    public Boolean uppdateDateOfReturn(int userId, Long bookId){
         List<UserBook> byUserId = new UserBookDao().findUserBooksByUsersId(userId);
         for (UserBook userBook : byUserId) {
             if(userBook.getBook().getId().equals(bookId) && !userBook.isReturned()){
                 LocalDate localDate = userBook.getDateOfReturn().plusDays(30);
                 userBook.setDateOfReturn(localDate);
                 new UserBookDao().save(userBook);
+                return true;
             }
 
         }
@@ -50,6 +49,7 @@ public class UserBookService {
 //
 //        }
 
+        return false;
     }
 }
 

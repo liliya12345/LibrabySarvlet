@@ -211,12 +211,12 @@
                 <label> Password again</label>
                 <input type="password" class="form-control w3-input w3-border w3-margin-bottom" id="password1"
                        name="password1" required>
-                <label>role</label>
-                <select name="author" id="role">
-                    <c:forEach items="${users}" var="user">
-                        <option value="${user.role}"></option>
-                    </c:forEach>
-                </select>
+<%--                <label>role</label>--%>
+<%--                <select name="author" id="role">--%>
+<%--                    <c:forEach items="${users}" var="user">--%>
+<%--                        <option value="${user.role}"></option>--%>
+<%--                    </c:forEach>--%>
+<%--                </select>--%>
                 <div class="w3-section">
                     <a class="w3-button w3-red" onclick="document.getElementById('id02').style.display='none'">Cancel<i
                             class="fa fa-remove"></i></a>

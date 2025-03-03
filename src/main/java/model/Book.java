@@ -13,14 +13,15 @@ import java.util.List;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Column
+    @Column(name="title")
     private String title;
-    @Column
+    @Column(name="description")
     private String description;
-    @Column
+    @Column (name="publisher")
     private String publisher;
-    @Column
+    @Column (name="year")
     private Integer year;
     @Column(name="image_path")
     private String imagePath;

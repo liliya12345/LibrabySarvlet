@@ -21,10 +21,11 @@ public class User {
     @Column(name = "username")
     private String username;
     @NotNull
-    @Pattern(message = "the word must start with a capital letter",regexp = "^[A-Z][a-z]*")
+    @Pattern(message = "the Fistname must start with a capital letter",regexp = "^[A-Z][a-z]*")
     @Column(name = "firstname")
     private String firsName;
-
+    @NotNull
+    @Pattern(message = "the Lastname must start with a capital letter",regexp = "^[A-Z][a-z]*")
     @Column(name = "lastname")
     private String lastName;
 

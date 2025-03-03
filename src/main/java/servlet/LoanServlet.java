@@ -23,13 +23,14 @@ public class LoanServlet extends HttpServlet {
             int userId = user.getId();
             Long bookId = Long.valueOf(pathInfo.substring(1));
 
-            new UserBookService().uppdateDateOfReturn(userId, bookId);
+            Boolean b= new UserBookService().uppdateDateOfReturn(userId, bookId);
+            if(b) req.setAttribute("success","Your has been successfully changed date of return!");
+            else req.setAttribute("error","You can not change date because of the book  already is returned!");
 
-            req.setAttribute("success", "Your has been successfully changed date of return!");
             getServletContext().getRequestDispatcher("/view/userspage.jsp").forward(req, resp);
 
         } catch (NumberFormatException e) {
-            req.setAttribute("error", "Your can not rebook the book!");
+
 
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid category ID");
         } catch (Exception e) {

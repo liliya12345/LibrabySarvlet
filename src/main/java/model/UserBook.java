@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public class UserBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;

@@ -12,8 +12,9 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Column
+    @Column(name="name")
     private String name;
     @OneToMany
     private List<Book> books;

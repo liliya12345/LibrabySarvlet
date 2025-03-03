@@ -11,9 +11,9 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column
+    @Column(name="firstname")
     private String firstName;
-    @Column
+    @Column(name="lastname")
     private String lastName;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Book> book;

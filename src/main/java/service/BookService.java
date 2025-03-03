@@ -58,6 +58,7 @@ public List<BookDto> findAllBookDtoByCategoryId(Long id) {
                   bookDtos.add(book);
               }
           }
+
       }
 
    return bookDtos;

@@ -36,7 +36,9 @@
         .status-info {
             position: absolute;
             z-index: 50;
-        }.status-info1 {
+        }
+
+        .status-info1 {
             position: absolute;
             z-index: 50;
             margin-top: 240px;
@@ -62,6 +64,10 @@
             height: 280px;
         }
 
+        .w3-sidebar {
+            height: 80%;
+        }
+
         .accordion {
             background-color: #eee;
             color: #444;
@@ -85,6 +91,7 @@
             background-color: white;
             overflow: hidden;
         }
+
 
         .wrapper .title {
             height: 120px;
@@ -327,12 +334,13 @@
         <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
             Media <i class="fa fa-caret-down"></i>
 
-        <%--        <#list categories as category>--%>
-        <%--        <a href="/books/${category.id}" class="w3-bar-item w3-button">${category.name}</a>--%>
-        <%--    </#list>--%>
+            <%--        <#list categories as category>--%>
+            <%--        <a href="/books/${category.id}" class="w3-bar-item w3-button">${category.name}</a>--%>
+            <%--    </#list>--%>
 
-        <% for (Category category : new CategoryDao().findAll()) {%>
-            <a href="/category/<%= category.getId()%>" class="w3-bar-item w3-button"><%= category.getName()%></a>
+            <% for (Category category : new CategoryDao().findAll()) {%>
+            <a href="/category/<%= category.getId()%>" class="w3-bar-item w3-button"><%= category.getName()%>
+            </a>
 
         </a>
 
@@ -342,11 +350,11 @@
 </nav>
 
 
-
 <!-- Top menu on small screens -->
 <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-    <div class="w3-bar-item w3-padding-24 w3-wide">LOGO</div>
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+    <div class="w3-bar-item w3-padding-24 w3-wide">Bibilio</div>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
+            class="fa fa-bars"></i></a>
 </header>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -421,24 +429,24 @@
         <div class="w3-row-margin" id="catalog">
             <div class="w3-col l12 s12">
                 <div class="w3-row-padding">
-<%--                    <c:forEach items="${books}" var="book">--%>
-<%--                        <div class="w3-col l3 contener">--%>
-<%--                            <c:if test="${empty book.dateOfReturn}">--%>
-<%--                                <div class="w3-button w3-green w3-padding-small w3-large status-info">${book.status}</div>--%>
-<%--                            </c:if>--%>
-<%--                            <c:if test="${not empty book.dateOfReturn}">--%>
-<%--                                <div class="w3-button w3-red w3-padding-small w3-large status-info">${book.dateOfReturn}</div>--%>
-<%--                            </c:if>--%>
-<%--                            <a  href="/bookinfo/${book.id}" class="w3-grey w3-padding w3-small status-info1">More..</a>--%>
-<%--                            <img src=${book.imagePath} alt="img" class="img"/>--%>
-<%--                            <p><a href="/booking/${book.id}"--%>
-<%--                                class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>--%>
-<%--                            </p>--%>
+                    <%--                    <c:forEach items="${books}" var="book">--%>
+                    <%--                        <div class="w3-col l3 contener">--%>
+                    <%--                            <c:if test="${empty book.dateOfReturn}">--%>
+                    <%--                                <div class="w3-button w3-green w3-padding-small w3-large status-info">${book.status}</div>--%>
+                    <%--                            </c:if>--%>
+                    <%--                            <c:if test="${not empty book.dateOfReturn}">--%>
+                    <%--                                <div class="w3-button w3-red w3-padding-small w3-large status-info">${book.dateOfReturn}</div>--%>
+                    <%--                            </c:if>--%>
+                    <%--                            <a  href="/bookinfo/${book.id}" class="w3-grey w3-padding w3-small status-info1">More..</a>--%>
+                    <%--                            <img src=${book.imagePath} alt="img" class="img"/>--%>
+                    <%--                            <p><a href="/booking/${book.id}"--%>
+                    <%--                                class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>--%>
+                    <%--                            </p>--%>
 
-<%--                            <p>${book.title}<br> ${book.author[0].firstName} <br>${book.author[0].lastName}--%>
+                    <%--                            <p>${book.title}<br> ${book.author[0].firstName} <br>${book.author[0].lastName}--%>
 
-<%--                        </div>--%>
-<%--                    </c:forEach>--%>
+                    <%--                        </div>--%>
+                    <%--                    </c:forEach>--%>
                     <c:forEach items="${all}" var="book">
                         <div class="w3-col l3 contener">
                             <c:if test="${empty book.dateOfReturn}">
@@ -447,7 +455,7 @@
                             <c:if test="${not empty book.dateOfReturn}">
                                 <div class="w3-button w3-red w3-padding-small w3-large status-info">${book.dateOfReturn}</div>
                             </c:if>
-                            <a  href="/bookinfo/${book.id}" class="w3-grey w3-padding w3-small status-info1">More..</a>
+                            <a href="/bookinfo/${book.id}" class="w3-grey w3-padding w3-small status-info1">More..</a>
                             <img src=${book.imagePath} alt="img" class="img"/>
                             <p><a href="/booking/${book.id}"
                                   class="w3-button w3-black w3-padding-large w3-large">LÅNA</a>
@@ -469,8 +477,7 @@
     </div>
 </div>
 
-
-
+<%@ include file="/WEB-INF/fragments/footer.jsp" %>
 
 
 <!-- Subscribe section -->
@@ -501,6 +508,7 @@
             }
         }
     }
+
     function myFunction() {
         var x = document.getElementById("myLinks");
         if (x.style.display === "block") {
@@ -509,6 +517,7 @@
             x.style.display = "block";
         }
     }
+
     function myAccFunc() {
         var x = document.getElementById("demoAcc");
         if (x.className.indexOf("w3-show") == -1) {
