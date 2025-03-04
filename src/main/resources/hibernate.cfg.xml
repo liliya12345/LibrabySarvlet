@@ -7,7 +7,10 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://dpg-cv3arbt6l47c73fbiefg-a.oregon-postgres.render.com:5432/librarysarvlet
+        <!-- localhost-->
+<!--        <property name="hibernate.connection.url">jdbc:postgresql://dpg-cv3arbt6l47c73fbiefg-a.oregon-postgres.render.com:5432/librarysarvlet-->
+<!--        </property>-->
+        <property name="hibernate.connection.url">jdbc:postgresql://dpg-cv3arbt6l47c73fbiefg-a/librarysarvlet
         </property>
         <property name="hibernate.connection.username">librarysarvlet_user</property>
         <property name="hibernate.connection.password">VeihAY2gnxu3ssu0uqCNxjTYvRozhGas</property>
