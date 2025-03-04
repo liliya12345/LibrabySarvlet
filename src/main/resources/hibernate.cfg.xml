@@ -7,10 +7,10 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://gondola.proxy.rlwy.net:54127/library
+        <property name="hibernate.connection.url">jdbc:postgresql://dpg-cv3arbt6l47c73fbiefg-a.oregon-postgres.render.com:5432/librarysarvlet
         </property>
-        <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">HjQppoRakUsYkellsLMoJtQsCBkfIcIa</property>
+        <property name="hibernate.connection.username">librarysarvlet_user</property>
+        <property name="hibernate.connection.password">VeihAY2gnxu3ssu0uqCNxjTYvRozhGas</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
@@ -21,3 +21,7 @@
         <mapping class="model.UserBook"/>
     </session-factory>
 </hibernate-configuration>
+<!--<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/library-->
+<!--</property>-->
+<!--<property name="hibernate.connection.username">postgres</property>-->
+<!--<property name="hibernate.connection.password">postgres</property>-->
