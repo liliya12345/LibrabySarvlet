@@ -1,6 +1,3 @@
-Rapport                                                                                                           Liliya Sayfutdinova
-
-
 
 # LibrarySarvlet✨
 ##### Målet med uppgiften var att  designa och utveckla en web applikation med hjälp  av JSP, Servlets, Hibernate  i Java med MVC pantern  för att hantera en bibliotekstjänst. 
